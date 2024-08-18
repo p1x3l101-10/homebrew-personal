@@ -9,5 +9,8 @@ cask "taisei-project" do
 
   app "Taisei.app"
 
-  zap trash: ""
+  zap trash: [
+    "~/Library/Application Support/taisei"
+    "~/Library/Saved Application State/org.taisei-project.taisei.savedState"
+  ]
 end

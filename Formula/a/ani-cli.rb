@@ -11,19 +11,16 @@ class AniCli < Formula
   depends_on "git"
   depends_on "fzf"
   depends_on "yt-dlp"
-  depends_on "coreutils" => :build
 
   def install
-    # Install required cask
-    system "/usr/bin/env", "brew", "install", "--cask", "iina"
-    system "gmkdir", "-p", "#{prefix}/bin", "#{prefix}/share/man/man1"
-    system "ginstall", "-m0755", "ani-cli", "#{prefix}/bin/ani-cli"
-    system "ginstall", "-m0644", "ani-cli.1", "#{prefix}/share/man/man1/ani-cli.1"
+    system "mkdir", "-p", "#{prefix}/bin", "#{prefix}/share/man/man1"
+    system "install", "-m0755", "ani-cli", "#{prefix}/bin/ani-cli"
+    system "install", "-m0644", "ani-cli.1", "#{prefix}/share/man/man1/ani-cli.1"
   end
   
   def caveats
     <<~EOS
-      ani-cli needs the cask "iina", this has been installed for you if it isnt already
+      ani-cli needs the cask "iina" to function on macos
     EOS
   end
 end

@@ -4,7 +4,7 @@ cask "taisei-project" do
 
   url "https://github.com/taisei-project/taisei/releases/download/v#{version}/Taisei-#{version}-universal.dmg"
   name "Taisei Project"
-  desc "A free and open-source Touhou Project fangame "
+  desc "A free and open-source Touhou Project fangame"
   homepage "https://taisei-project.org/"
 
   app "Taisei.app"

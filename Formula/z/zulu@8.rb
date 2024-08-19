@@ -1,5 +1,5 @@
 class ZuluAT8 < Formula
-  desc "java 8 for aarch64"
+  desc "Java 8 for M1, provided by Zulu"
   homepage "https://www.azul.com/"
   version "8.80.0.17-ca-jdk8.0.422"
   url "https://cdn.azul.com/zulu/bin/zulu#{version}-macosx_aarch64.zip"

@@ -11,6 +11,7 @@ class AniCli < Formula
   depends_on "git"
   depends_on "fzf"
   depends_on "yt-dlp"
+  depends_on "coreutils" => build
 
   def install
     # Install required cask
@@ -20,8 +21,9 @@ class AniCli < Formula
     system "ginstall", "-m0644", "ani-cli.1", "#{prefix}/share/man/man1/ani-cli.1"
   end
   
-  def uninstall
-      # Uninstall required cask
-    system "/usr/bin/env", "brew", "uninstall", "--cask", "iina"
+  def caveats
+    <<~EOS
+      ani-cli needs the cask "iina", this has been installed for you if it isnt already
+    EOS
   end
 end

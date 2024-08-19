@@ -1,2 +1,2 @@
 #!/bin/sh
-brew bundle --global --all --no-lock --force --verbose dump
+brew bundle --global --all --force --verbose dump

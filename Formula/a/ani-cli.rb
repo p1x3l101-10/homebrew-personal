@@ -11,7 +11,7 @@ class AniCli < Formula
   depends_on "git"
   depends_on "fzf"
   depends_on "yt-dlp"
-  depends_on "coreutils" => build
+  depends_on "coreutils" => :build
 
   def install
     # Install required cask

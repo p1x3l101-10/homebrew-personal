@@ -1,2 +1,8 @@
 #!/bin/sh
-brew bundle --global --all --force --verbose dump
+brew bundle --global --all dump
+(
+	cd $HOMEBREW_PREFIX/etc
+	if [ -d ./.git ] && [ -f ./homebrew/Brewfile ]; then
+		git commit -m "modify packages" ./homebrew/Brewfile
+	fi
+)

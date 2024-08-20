@@ -1,6 +1,3 @@
-# Documentation: https://docs.brew.sh/Formula-Cookbook
-#                https://rubydoc.brew.sh/Formula
-# PLEASE REMOVE ALL GENERATED COMMENTS BEFORE SUBMITTING YOUR PULL REQUEST!
 class Picol < Formula
   desc "Tiny TCL implementation"
   homepage "http://oldblog.antirez.com/post/picol.html"
@@ -10,8 +7,8 @@ class Picol < Formula
   license "GPLv2"
 
   def install
-    system "cc", "-O2", "-Wall", "picol.c.txt", "-o", "picol"
-    system "mkdir", "-p", "#{prefix}/bin"
-    system "install", "-m0755", "#{prefix}/bin/picol"
+    system "mv", "picol.c.txt", "picol.c"
+    system "cc", "-O2", "-Wall", "picol.c", "-o", "picol"
+    bin.install "picol"
   end
 end

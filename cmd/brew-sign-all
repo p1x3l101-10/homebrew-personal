@@ -5,10 +5,10 @@ echo ""
 if [[ $REPLY =~ ^[Yy]$ ]]; then
   find $HOMEBREW_PREFIX/Cellar -type f -print0 | while IFS='' read -d '' line ; do
     if [[ -x "$line" ]]; then
-      codesign --sign --force - "$line"
+      codesign --sign - --force --preserve-metadata=identifier,entitlements --timestamp=none "$line"
     fi
   done
   find $HOMEBREW_PREFIX/Caskroom -maxdepth 3 -name '*.app' -type d -print0 | while IFS='' read -d '' line ; do
-    codesign --sign --deep --force - "$line"
+    codesign --sign - --deep --force --preserve-metadata=identifier,entitlements --timestamp=none "$line"
   done
 fi

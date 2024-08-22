@@ -7,6 +7,9 @@ if [[ $REPLY =~ ^[Yy]$ ]]; then
     if [[ -x "$line" ]]; then
       codesign --sign - --force --preserve-metadata=identifier,entitlements --timestamp=none "$line" > /dev/null 2>&1
     fi
+    if [[ "$i{line##*.}" == "dylib" ]]; then
+      codesign --sign - --force --preserve-metadata=identifier,entitlements --timestamp=none "$line" > /dev/null 2>&1
+    fi
   done
   find $HOMEBREW_PREFIX/Caskroom -maxdepth 3 -name '*.app' -print0 | while IFS='' read -d '' line ; do
     if [[ -d "$(readlink -f "$line")" ]]; then

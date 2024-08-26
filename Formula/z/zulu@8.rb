@@ -13,6 +13,11 @@ class ZuluAT8 < Formula
 
 
   def install
-    system "sh", "-c", "mv zulu-8.jdk/Contents/Home/* #{prefix}"
+    #system "sh", "-c", "mv zulu-8.jdk/Contents/Home/* #{prefix}"
+    libexec.install Dir["*.jdk"].first => "zulu-8.jdk"
+    bin.install_symlink Dir["#{libexec}/zulu-8.jdk/Contents/Home/bin/*"]
+    include.install_symlink Dir["#{libexec}/zulu-8.jdk/Contents/Home/include/*.h"]
+    include.install_symlink Dir["#{libexec}/zulu-8.jdk/Contents/Home/include/#{OS.kernel_name.downcase}/*.h"]
+    man1.install_symlink Dir["#{libexec}/zulu-8.jdk/Contents/Home/man/man1/*"]
   end
 end

@@ -26,10 +26,10 @@ grep -v "^\s*[#;]" "$HOMEBREW_PREFIX/etc/homebrew/links.conf" | grep -v "^\s*$" 
 				fi
 				;;
 			'')
-				if [[ -L "$realTarget" ]]; then
+				if [[ -e "$realTarget" ]] && [[ -L "$realTarget" ]]; then
 					rm "$realTarget"
 				else
-					echo "\'$target\' is not a link!"
+					echo "$target is not a link!"
 				fi
 				ln -s "$realSource" "$realTarget"
 				;;

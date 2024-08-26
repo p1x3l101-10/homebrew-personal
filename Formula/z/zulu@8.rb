@@ -7,6 +7,9 @@ class ZuluAT8 < Formula
   license "GPLv2"
 
   depends_on arch: :arm64
+  depends_on macos: :catalina
+
+  keg_only :shadowed_by_macos
 
 
   def install

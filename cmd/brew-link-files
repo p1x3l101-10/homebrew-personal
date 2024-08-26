@@ -1,0 +1,37 @@
+#!/usr/bin/env bash
+
+function deref () {
+	case $1 in
+		'~p/'*) echo "$HOMEBREW_PREFIX/${1#'~p/'}";; #Prefix
+		'~r/'*) echo "/${1#'~r/'}";; # Root
+		'~h/'*) echo "$HOME/${1#'~h/'}";; # Home
+	esac
+}
+
+
+
+grep -v "^\s*[#;]" "$HOMEBREW_PREFIX/etc/homebrew/links.conf" | grep -v "^\s*$" | \
+	while IFS=':' read source target; do
+		realSource="$(deref "$source")"
+		realTarget="$(deref "$target")"
+		case $1 in
+			'--dry')
+				echo "ln -s $realSource $realTarget"
+				;;
+			'--clear')
+				if [[ -L "$realTarget" ]]; then
+					rm "$realTarget"
+				else
+					echo "\'$target\' is not a link!"
+				fi
+				;;
+			'')
+				if [[ -L "$realTarget" ]]; then
+					rm "$realTarget"
+				else
+					echo "\'$target\' is not a link!"
+				fi
+				ln -s "$realSource" "$realTarget"
+				;;
+		esac
+	done

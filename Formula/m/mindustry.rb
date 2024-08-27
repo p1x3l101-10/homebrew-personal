@@ -35,7 +35,7 @@ class Mindustry < Formula
         NOTE: The app bundle utilizes symlinkt to slim down the size and deduplicate resources
           This also allows the bundle to automagically update the jre when openjdk@17 is also updated
           To make the app portable, copy the bundle while dereferenceing it like this:
-            cp -rR #{libexec}/Mindustry.app ~/Applications/Mindustry.app
+            cp -rL #{libexec}/Mindustry.app ~/Applications/Mindustry.app
       EOS
     end
   end

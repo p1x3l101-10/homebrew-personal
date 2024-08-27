@@ -62,7 +62,7 @@ class Mindustry < Formula
       # Link running script to app bundle, no need to duplicate files
       bin.install_symlink libexec/"Mindustry.app/Contents/MacOS/Mindustry" => "mindustry"
     elsif (not (build.without? "app")) and ((build.without? "prebuilt") or (build.head?))
-      system "./gradlew", "desktop:packr"
+      system "./gradlew", "desktop:packrMacOS", "--info"
       libexec.install Dir ["build/packr/output/Mindustry.app"]
       # Link running script to app bundle, no need to duplicate files
       bin.install_symlink libexec/"Mindustry.app/Contents/MacOS/Mindustry" => "mindustry"

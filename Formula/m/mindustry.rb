@@ -6,6 +6,11 @@ class Mindustry < Formula
   sha256 "3ab0e46c3cbdc863529ba05e804847ef00e3dbdb4567b5c27c5e6dce071b93f9"
   license "GPL3"
 
+  head do
+    url "https://github.com/Anuken/Mindustry.git"
+    #depends_on "gradle" => :build
+  end
+
   option "with-app"
 
   depends_on "openjdk@17"
@@ -26,7 +31,12 @@ class Mindustry < Formula
   end
 
   def install
-    libexec.install "Mindustry.jar"
+    if build.head?
+      system "./gradlew", "desktop:build"
+      libexec.install "desktop/build/libs/desktop-release.jar" => "Mindustry.jar"
+    else
+      libexec.install "Mindustry.jar"
+    end
     bin.write_jar_script "#{libexec}/Mindustry.jar", "mindustry", java_version: "17"
 
     if build.with? "app"
@@ -40,5 +50,9 @@ class Mindustry < Formula
       system "sh", "-c", "echo 'IyEvYmluL2Jhc2gKZXhwb3J0IEFQUF9MT0NBVElPTj0iJChjZCAiJChkaXJuYW1lICIkMCIpLy4uLy4uIjsgcHdkKSIKZWNobyAiQVBQX0xPQ0FUSU9OIGlzICR7QVBQX0xPQ0FUSU9OfSIKZXhwb3J0ICJKQVZBX0hPTUUiPSIke0pBVkFfSE9NRTotIiR7QVBQX0xPQ0FUSU9OfS9Db250ZW50cy9SZXNvdXJjZXMvb3Blbmpkay5qZGsvQ29udGVudHMvSG9tZSJ9IgplY2hvICJKQVZBX0hPTUUgaXMgJHtKQVZBX0hPTUV9IgplY2hvICJQcmludGluZyBKYXZhIHZlcnNpb24gaW5mby4uLiIKZXZhbCAiJHtKQVZBX0hPTUV9L2Jpbi9qYXZhIC12ZXJzaW9uIgpleGVjICIke0pBVkFfSE9NRX0vYmluL2phdmEiICItWHN0YXJ0T25GaXJzdFRocmVhZCIgIi1EaHR0cHMucHJvdG9jb2xzPVRMU3YxLjIsVExTdjEuMSxUTFN2MSIgIi1YWDorU2hvd0NvZGVEZXRhaWxzSW5FeGNlcHRpb25NZXNzYWdlcyIgLWphciAiJHtBUFBfTE9DQVRJT059L0NvbnRlbnRzL1Jlc291cmNlcy9NaW5kdXN0cnkuamFyIiAiJEAiCg==' | base64 -d > #{libexec}/Mindustry.app/Contents/MacOS/Mindustry"
       system "chmod", "+x", "#{libexec}/Mindustry.app/Contents/MacOS/Mindustry"
     end
+  end
+
+  livecheck do
+    url "https://github.com/Anuken/Mindustry.git"
   end
 end

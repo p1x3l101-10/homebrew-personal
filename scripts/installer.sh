@@ -1,6 +1,6 @@
 #!/bin/bash
 
-git clone https://github.com/Homebrew/brew -C /var/tmp/homebrew
+git clone https://github.com/Homebrew/brew /var/tmp/homebrew
 eval $(/var/tmp/homebrew/bin/brew shellenv)
 mkdir -p $(brew --prefix)/etc/homebrew
 mkdir -p $(brew --prefix)/etc/kitty

@@ -4,7 +4,7 @@ class Mindustry < Formula
   version "146"
   license "GPL3"
 
-  option "without-prebuilt"
+  option "without-prebuilt" "Don't download the release jar and build from source instead"
   
   if build.without? "prebuilt"
     url "https://github.com/Anuken/Mindustry.git",
@@ -16,7 +16,7 @@ class Mindustry < Formula
 
   head "https://github.com/Anuken/Mindustry.git"
 
-  option "with-app"
+  option "with-app" "Build an app bundle"
 
   depends_on "openjdk@17"
 
@@ -37,8 +37,8 @@ class Mindustry < Formula
 
   def install
     if (build.head?) or (build.without? "prebuilt")
-      system "./gradlew", "desktop:build"
-      libexec.install "desktop/build/libs/desktop-release.jar" => "Mindustry.jar"
+      system "./gradlew", "desktop:dist"
+      libexec.install "desktop/build/libs/Mindustry.jar"
     else
       libexec.install "Mindustry.jar"
     end
@@ -55,8 +55,8 @@ class Mindustry < Formula
       system "sh", "-c", "echo 'IyEvYmluL2Jhc2gKZXhwb3J0IEFQUF9MT0NBVElPTj0iJChjZCAiJChkaXJuYW1lICIkMCIpLy4uLy4uIjsgcHdkKSIKZWNobyAiQVBQX0xPQ0FUSU9OIGlzICR7QVBQX0xPQ0FUSU9OfSIKZXhwb3J0ICJKQVZBX0hPTUUiPSIke0pBVkFfSE9NRTotIiR7QVBQX0xPQ0FUSU9OfS9Db250ZW50cy9SZXNvdXJjZXMvb3Blbmpkay5qZGsvQ29udGVudHMvSG9tZSJ9IgplY2hvICJKQVZBX0hPTUUgaXMgJHtKQVZBX0hPTUV9IgplY2hvICJQcmludGluZyBKYXZhIHZlcnNpb24gaW5mby4uLiIKZXZhbCAiJHtKQVZBX0hPTUV9L2Jpbi9qYXZhIC12ZXJzaW9uIgpleGVjICIke0pBVkFfSE9NRX0vYmluL2phdmEiICItWHN0YXJ0T25GaXJzdFRocmVhZCIgIi1EaHR0cHMucHJvdG9jb2xzPVRMU3YxLjIsVExTdjEuMSxUTFN2MSIgIi1YWDorU2hvd0NvZGVEZXRhaWxzSW5FeGNlcHRpb25NZXNzYWdlcyIgLWphciAiJHtBUFBfTE9DQVRJT059L0NvbnRlbnRzL1Jlc291cmNlcy9NaW5kdXN0cnkuamFyIiAiJEAiCg==' | base64 -d > #{libexec}/Mindustry.app/Contents/MacOS/Mindustry"
       system "chmod", "+x", "#{libexec}/Mindustry.app/Contents/MacOS/Mindustry"
     elsif (build.with? "app") and ((build.without? "prebuilt") or (build.head?))
-      # building with app is not supported yet from source, I still am finding the gradle way
-      system "sh", "-c", "exit 1"
+      system "./gradlew", "desktop:packr"
+      libexec.install Dir ["build/packr/output/Mindustry.app"]
     end
   end
 

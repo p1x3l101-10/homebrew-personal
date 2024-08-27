@@ -29,8 +29,8 @@ class Mindustry < Formula
         The app bundle is installed into:
           #{libexec}/Mindustry.app
 
-        Use the following command to link it into your applications folder
-        `ln -s #{HOMEBREW_PREFIX}/opt/mindustry/libexec/Mindustry.app ~/Applications/Mindustry.app'
+        Use the following command to link it into your applications folder:
+          ln -s #{HOMEBREW_PREFIX}/opt/mindustry/libexec/Mindustry.app ~/Applications/Mindustry.app
       EOS
     end
   end

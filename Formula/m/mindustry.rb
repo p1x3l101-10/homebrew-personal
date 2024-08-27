@@ -1,3 +1,4 @@
+# NOTE TO ALL READING, any builds that are not using the prebuilt image WILL fail, I am working on a fix
 class Mindustry < Formula
   desc " The automation tower defense RTS "
   homepage "https://mindustrygame.github.io/"

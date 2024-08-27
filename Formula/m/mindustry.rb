@@ -4,19 +4,19 @@ class Mindustry < Formula
   version "146"
   license "GPL3"
 
-  option "without-prebuilt" "Don't download the release jar and build from source instead"
+  option "without-prebuilt", "Don't download the release jar and build from source instead"
   
-  if build.without? "prebuilt"
-    url "https://github.com/Anuken/Mindustry.git",
-      tag: "v#{version}"
-  else
+  unless build.without? "prebuilt"
     url "https://github.com/Anuken/Mindustry/releases/download/v#{version}/Mindustry.jar"
     sha256 "3ab0e46c3cbdc863529ba05e804847ef00e3dbdb4567b5c27c5e6dce071b93f9"
+  else
+    url "https://github.com/Anuken/Mindustry.git",
+      tag: "v#{version}"
   end
 
   head "https://github.com/Anuken/Mindustry.git"
 
-  option "without-app" "Don't build an app bundle"
+  option "without-app", "Don't build an app bundle"
 
   depends_on "openjdk@17"
 

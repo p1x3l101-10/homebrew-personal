@@ -1,4 +1,6 @@
-#!/bin/sh
+#!/usr/bin/env bash
+# Backup packages
+echo "Backing up packages..."
 brew bundle --global --all --force dump
 (
 	cd $HOMEBREW_PREFIX/etc
@@ -6,3 +8,21 @@ brew bundle --global --all --force dump
 		git commit -m "modify packages" ./homebrew/Brewfile
 	fi
 )
+
+# Backup files to iCloud
+if [ -f $HOMEBREW_PREFIX/etc/homebrew/backupPaths.conf ]; then
+  function deref () {
+	  case $1 in
+		  '~p/'*) echo "$HOMEBREW_PREFIX/${1#'~p/'}";; #Prefix
+		  '~r/'*) echo "/${1#'~r/'}";; # Root
+		  '~h/'*) echo "$HOME/${1#'~h/'}";; # Home
+	  esac
+  }
+  mkdir -p "$HOME/Library/Mobile Documents/com~apple~CloudDocs/homebrew"
+  grep -v "^\s*[#;]" "$HOMEBREW_PREFIX/etc/homebrew/backupPaths.conf" | grep -v "^\s*$" | \
+    while read path; do
+      realPath="$(deref "$path")"
+      echo "Backing up path: $path ..."
+      zip -ru "$HOME/Library/Mobile Documents/com~apple~CloudDocs/homebrew/filebackup.zip" "$realPath"
+    done
+fi

@@ -9,8 +9,9 @@ cask "pollymc" do
 
   app "PollyMC.app"
 
-  # Use Fjordlauncher instead
+  # Use Fjordlauncher instead: https://github.com/unmojang/FjordLauncher
   deprecate! date: "2024-08-28", because: :unmaintained
+  disable! date: "2024-09-01", because: :unmaintained
 
   zap trash: [
     "~/Library/Application Support/PollyMC",

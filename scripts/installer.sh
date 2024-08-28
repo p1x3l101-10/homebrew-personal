@@ -26,7 +26,7 @@ EOF
 
 cat <<EOF > $(brew --prefix)/etc/homebrew/Brewfile
 tap "homebrew/bundle"
-tap "homebrew/casks"
+tap "homebrew/cask"
 tap "homebrew/core"
 tap "homebrew/services"
 tap "p1x3l101-10/personal"

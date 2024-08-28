@@ -9,11 +9,12 @@ cask "pollymc" do
 
   app "PollyMC.app"
 
+  # Use Fjordlauncher instead
+  deprecate! date: "2024-08-28", because: :unmaintained
+
   zap trash: [
-    "~/Library/Application Support/PollyMC/metacache",
-    "~/Library/Application Support/PollyMC/PrismLauncher-*.log",
-    "~/Library/Application Support/PollyMC/prismlauncher.cfg",
-    "~/Library/Preferences/org.prismlauncher.PrismLauncher.plist",
-    "~/Library/Saved Application State/org.prismlauncher.PrismLauncher.savedState",
+    "~/Library/Application Support/PollyMC",
+    "~/Library/Preferences/org.prismlauncher.PollyMC.plist",
+    "~/Library/Saved Application State/org.prismlauncher.PollyMC.savedState",
     ]
 end

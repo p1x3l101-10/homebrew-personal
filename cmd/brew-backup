@@ -19,9 +19,8 @@ if [ -f $HOMEBREW_PREFIX/etc/homebrew/backupPaths.conf ]; then
 		  '~h/'*) echo "$HOME/${1#'~h/'}";; # Home
 	  esac
   }
-  backupFile="${HOMEBREW_BACKUP_ZIP_FILE:-"$HOME/Documents/Homebrew Backup.zip"}"
-  mkdir -p "$(dirname "$backupFile")"
-  argv=("zip" "-r" "-FS" "$backupFile")
+  mkdir -p "$(dirname "$HOMEBREW_BACKUP_PATH")"
+  argv=("${HOMEBREW_BACKUP_CMD:-"zip"}" "${HOMEBREW_BACKUP_CMD_ARGS:-"-rFS"}" "${HOMEBREW_BACKUP_PATH:-"$HOME/Documents/Backup.zip"}")
   while read path; do
     echo "Backing up path: $path ..."
     realPath="$(deref "$path")"

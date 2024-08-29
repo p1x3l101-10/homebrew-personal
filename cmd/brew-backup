@@ -6,6 +6,7 @@ brew bundle --global --all --force dump
 	cd $HOMEBREW_PREFIX/etc
 	if [ -d ./.git ] && [ -f ./homebrew/Brewfile ]; then
 		git commit -m "modify packages" ./homebrew/Brewfile
+    echo ""
 	fi
 )
 
@@ -19,10 +20,13 @@ if [ -f $HOMEBREW_PREFIX/etc/homebrew/backupPaths.conf ]; then
 	  esac
   }
   mkdir -p "$HOME/Library/Mobile Documents/com~apple~CloudDocs/homebrew"
-  grep -v "^\s*[#;]" "$HOMEBREW_PREFIX/etc/homebrew/backupPaths.conf" | grep -v "^\s*$" | \
-    while read path; do
-      realPath="$(deref "$path")"
-      echo "Backing up path: $path ..."
-      zip -ru "$HOME/Library/Mobile Documents/com~apple~CloudDocs/homebrew/filebackup.zip" "$realPath"
-    done
+  argv=("zip" "-r" "-FS" "$HOME/Library/Mobile Documents/com~apple~CloudDocs/homebrew/fileBackup.zip")
+  while read path; do
+    echo "Backing up path: $path ..."
+    realPath="$(deref "$path")"
+    argv+=("$realPath")
+  done <<< "$(grep -v "^\s*[#;]" "$HOMEBREW_PREFIX/etc/homebrew/backupPaths.conf" | grep -v "^\s*$")"
+
+  echo "Writing backup..."
+  eval ${argv[*]@Q}
 fi

@@ -20,13 +20,19 @@ if [ -f $HOMEBREW_PREFIX/etc/homebrew/backupPaths.conf ]; then
 	  esac
   }
   mkdir -p "$(dirname "$HOMEBREW_BACKUP_PATH")"
-  argv=("${HOMEBREW_BACKUP_CMD:-"zip"}" "${HOMEBREW_BACKUP_CMD_ARGS:-"-rFS"}" "${HOMEBREW_BACKUP_PATH_FRONT:-"$HOME/Documents/Backup.zip"}")
+
+  argv=("${HOMEBREW_BACKUP_CMD:-"zip"}" "${HOMEBREW_BACKUP_CMD_ARGS:-"-rFS"}")
+  if [ -z $HOMEBREW_BACKUP_PATH_BACK ]; then
+    argv+=("${HOMEBREW_BACKUP_PATH:-"$HOME/Documents/Backup.zip"}")
+  fi
   while read path; do
     echo "Backing up path: $path ..."
     realPath="$(deref "$path")"
     argv+=("$realPath")
   done <<< "$(grep -v "^\s*[#;]" "$HOMEBREW_PREFIX/etc/homebrew/backupPaths.conf" | grep -v "^\s*$")"
-  argv+=("${HOMEBREW_BACKUP_PATH_BACK:-""}")
+  if [ $HOMEBREW_BACKUP_PATH_BACK -eq "1" ]; then
+    argv+=("${HOMEBREW_BACKUP_PATH:-"$HOME/Documents/Backup.zip"}")
+  fi
 
   echo "Writing backup..."
   eval ${argv[*]@Q}

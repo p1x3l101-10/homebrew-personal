@@ -12,8 +12,8 @@ cask "ryujinx" do
   app "Ryujinx.app"
 
   zap trash: [
-    "~/Library/Application Support/Ryujinx"
-    "~/Library/Saved Application State/org.ryujinx.Ryujinx.savedState"
+    "~/Library/Application Support/Ryujinx",
+    "~/Library/Saved Application State/org.ryujinx.Ryujinx.savedState",
     "~/Library/Logs/Ryujinx"
   ]
 end

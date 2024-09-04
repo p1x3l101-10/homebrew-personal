@@ -17,8 +17,8 @@ if [ -f $HOMEBREW_PREFIX/etc/homebrew/backupPaths.conf ]; then
 		  '~p/'*) echo "$HOMEBREW_PREFIX/${1#'~p/'}";; #Prefix
 		  '~r/'*) echo "/${1#'~r/'}";; # Root
 		  '~h/'*) echo "$HOME/${1#'~h/'}";; # Home
-		  '~a/'*) echo "$HOME/Library/Application Support${1#'~a/'}";; # App Data
-		  '~s/'*) echo "$HOME/Library/Saved Application State${1#'~s/'}";; # Saved State
+		  '~a/'*) echo "$HOME/Library/Application Support/${1#'~a/'}";; # App Data
+		  '~s/'*) echo "$HOME/Library/Saved Application State/${1#'~s/'}";; # Saved State
 	  esac
   }
   mkdir -p "$(dirname "$HOMEBREW_BACKUP_PATH")"

@@ -23,7 +23,7 @@ if [ -f $HOMEBREW_PREFIX/etc/homebrew/backupPaths.conf ]; then
   }
   mkdir -p "$(dirname "$HOMEBREW_BACKUP_PATH")"
 
-  argv=("${HOMEBREW_BACKUP_CMD:-"zip"}" "${HOMEBREW_BACKUP_CMD_ARGS:-"-rFS"}")
+  argv=("${HOMEBREW_BACKUP_CMD:-"zip"}" "${HOMEBREW_BACKUP_CMD_ARGS:-"-rFSy"}")
   if [ -z $HOMEBREW_BACKUP_PATH_BACK ]; then
     argv+=("${HOMEBREW_BACKUP_PATH:-"$HOME/Documents/Backup.zip"}")
   fi
@@ -32,7 +32,7 @@ if [ -f $HOMEBREW_PREFIX/etc/homebrew/backupPaths.conf ]; then
     realPath="$(deref "$path")"
     argv+=("$realPath")
   done <<< "$(grep -v "^\s*[#;]" "$HOMEBREW_PREFIX/etc/homebrew/backupPaths.conf" | grep -v "^\s*$")"
-  if [ $HOMEBREW_BACKUP_PATH_BACK -eq "1" ]; then
+  if ! [ -z $HOMEBREW_BACKUP_PATH_BACK ]; then
     argv+=("${HOMEBREW_BACKUP_PATH:-"$HOME/Documents/Backup.zip"}")
   fi
 

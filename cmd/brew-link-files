@@ -10,30 +10,60 @@ function deref () {
 	esac
 }
 
-
-
-grep -v "^\s*[#;]" "$HOMEBREW_PREFIX/etc/homebrew/links.conf" | grep -v "^\s*$" | \
-	while IFS=':' read source target; do
-		realSource="$(deref "$source")"
-		realTarget="$(deref "$target")"
-		case $1 in
-			'--dry')
-				echo "ln -s $realSource $realTarget"
-				;;
-			'--clear')
-				if [[ -L "$realTarget" ]]; then
-					rm "$realTarget"
-				else
-					echo "\'$target\' is not a link!"
+function linkgen () {
+  local linkfile="$1"
+  grep -v "^\s*[#;]" "$linkfile" | grep -v "^\s*$" | \
+	  while IFS=':' read source target; do
+		  realSource="$(deref "$source")"
+		  realTarget="$(deref "$target")"
+				if [[ -e "$realTarget" ]]; then
+					echo "$target exists!"
+        else
+				  ln -s "$realSource" "$realTarget"
+          echo "$source => $target"
 				fi
-				;;
-			'')
-				if [[ -e "$realTarget" ]] && [[ -L "$realTarget" ]]; then
-					rm "$realTarget"
-				else
-					echo "$target is not a link!"
-				fi
-				ln -s "$realSource" "$realTarget"
-				;;
-		esac
-	done
+      done
+}
+
+function linkdel () {
+  local linkfile="$1"
+  grep -v "^\s*[#;]" "$linkfile" | grep -v "^\s*$" | \
+	  while IFS=':' read source target; do
+		  realSource="$(deref "$source")"
+		  realTarget="$(deref "$target")"
+			if [[ -L "$realTarget" ]]; then
+				rm "$realTarget"
+			else
+				echo "\'$target\' is not a link!"
+			fi
+    done
+}
+
+function fileback () {
+  local linkfile="$1"
+  local backuploc="$2"
+  if [[ -e $backuploc ]]; then
+    rm $backuploc
+  fi
+  cp $linkfile $backuploc
+}
+
+LINKFILE="$HOMEBREW_PREFIX/etc/homebrew/links.conf"
+LINKFILE_ACTIVE="$HOMEBREW_PREFIX/Library/.links.db" # Hide the file so people dont delete it by accident
+
+case $1 in
+  '--clear')
+    if ! [[ -e $LINKFILE_ACTIVE ]]; then
+      echo "No active linkfile found!"
+      exit 1
+    fi
+    linkdel "$LINKFILE_ACTIVE"
+    ;;
+  '')
+    if [[ -e $LINKFILE_ACTIVE ]]; then
+      linkdel "$LINKFILE_ACTIVE" # Clear out old links
+    fi
+    filebak "$LINKFILE" "$LINKFILE_ACTIVE"
+    linkgen "$LINKFILE_ACTIVE"
+    ;;
+esac

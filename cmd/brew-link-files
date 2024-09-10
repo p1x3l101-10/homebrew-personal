@@ -48,6 +48,25 @@ function fileback () {
   cp $linkfile $backuploc
 }
 
+function filemover () {
+  local linkfile="$1"
+  mkdir -p /var/tmp/link-files-backup
+  grep -v "^\s*[#;]" "$linkfile" | grep -v "^\s*$" | \
+	  while IFS=':' read source target; do
+		  realSource="$(deref "$source")"
+		  realTarget="$(deref "$target")"
+      if [[ -e "$realTarget" ]];then
+        mv "$realTarget" /var/tmp/link-files-backup/
+      fi
+    done
+  rmdir /var/tmp/link-files-backup
+  # If there were files to backup
+  if [[ -d /var/tmp/link-files-backup ]];then
+    mv /var/tmp/link-files-backup "$HOME/Link Conflicts"
+    echo "Conflicting files/folders were found, moved to '~/Link Conflicts'"
+  fi
+}
+
 LINKFILE="$HOMEBREW_PREFIX/etc/homebrew/links.conf"
 LINKFILE_ACTIVE="$HOMEBREW_PREFIX/Library/.links.db" # Hide the file so people dont delete it by accident
 
@@ -59,11 +78,19 @@ case $1 in
     fi
     linkdel "$LINKFILE_ACTIVE"
     ;;
+  '--force-link')
+    if [[ -e $LINKFILE_ACTIVE ]]; then
+      linkdel "$LINKFILE_ACTIVE" # Clear out old links
+    fi
+    fileback "$LINKFILE" "$LINKFILE_ACTIVE"
+    filemover "$LINKFILE_ACTIVE"
+    linkgen "$LINKFILE_ACTIVE"
+    ;;
   '')
     if [[ -e $LINKFILE_ACTIVE ]]; then
       linkdel "$LINKFILE_ACTIVE" # Clear out old links
     fi
-    filebak "$LINKFILE" "$LINKFILE_ACTIVE"
+    fileback "$LINKFILE" "$LINKFILE_ACTIVE"
     linkgen "$LINKFILE_ACTIVE"
     ;;
 esac

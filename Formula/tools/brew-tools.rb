@@ -3,7 +3,7 @@ class BrewTools < Formula
   homepage "https://github.com/p1x3l101-10/brew-tools"
   version "2.6"
   url "https://github.com/p1x3l101-10/brew-tools.git",
-    tag: "v#{version}",
+    tag: "v#{version}"
   head "https://github.com/p1x3l101-10/brew-tools.git",
     branch: "main"
   

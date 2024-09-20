@@ -1,10 +1,10 @@
 class BrewTools < Formula
   desc "Homebrew extensions"
   homepage "https://github.com/p1x3l101-10/brew-tools"
-  version "2.3"
+  version "2.4"
   url "https://github.com/p1x3l101-10/brew-tools.git",
     tag: "v#{version}",
-    revision: "ded98e0fe4e7dc00f1ba648ac6a155414769036a"
+    revision: "875f21d6f990eabd193b5e01f2284a346b348882"
   
   depends_on "cmake" => :build
 

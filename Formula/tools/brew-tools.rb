@@ -1,20 +1,16 @@
 class BrewTools < Formula
   desc "Homebrew extensions"
   homepage "https://github.com/p1x3l101-10/brew-tools"
-  version "1.1"
+  version "2.0"
   url "https://github.com/p1x3l101-10/brew-tools.git",
     tag: "v#{version}",
-    revision: "a0c1086ca03817e742b42afc32416bafb19225ec"
-
+    revision: "9d8311f295e403292edd1e15988b987ee59f3ca3"
+  
+  depends_on "cmake" => :build
 
   def install
-    bin.install "brew-backup"
-    bin.install "brew-full-up"
-    bin.install "brew-link-apps"
-    bin.install "brew-link-files"
-    bin.install "brew-sign"
-    bin.install "brew-sign-all"
-    bin.install "brew-socks"
-    bin.install "brew-x64"
+    system "cmake", "-S", ".", "-B", "build", *std_cmake_args
+    system "cmake", "--build", "build"
+    system "cmake", "--install", "build"
   end
 end

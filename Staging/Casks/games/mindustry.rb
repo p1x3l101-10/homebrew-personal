@@ -11,19 +11,23 @@ class Mindustry < Formula
     url "https://github.com/Anuken/Mindustry/releases/download/v#{version}/Mindustry.jar"
     sha256 "3ab0e46c3cbdc863529ba05e804847ef00e3dbdb4567b5c27c5e6dce071b93f9"
   else
-    url "https://github.com/Anuken/Mindustry.git",
-      tag: "v#{version}"
+    url "https://github.com/Anuken/Mindustry/archive/refs/tags/v#{version}.tar.gz"
+    sha256 "aa1684d87d9f3e1d1a2da415b5e055ea6493fe31398748447927bd903019adbd"
+    depends_on "gradle@7" => :build
   end
 
-  head "https://github.com/Anuken/Mindustry.git"
+  head do
+    url "https://github.com/Anuken/Mindustry.git"
+    version "HEAD"
+  done
 
   option "without-app", "Don't build an app bundle"
 
   depends_on "openjdk@17"
 
   unless build.without? "app"
-    uses_from_macos "unzip"
-    uses_from_macos "base64"
+    uses_from_macos "unzip" => :build
+    uses_from_macos "base64" => :build
 
     def caveats
       <<~EOS
@@ -44,7 +48,7 @@ class Mindustry < Formula
   def install
     # Build jar if there is a need to
     if ((build.head?) or (build.without? "prebuilt")) and (build.without? "app")
-      system "./gradlew", "desktop:dist"
+      system "./gradlew", "--offline", "desktop:dist"
     end
 
     if (not (build.without? "app")) and not ((build.without? "prebuilt") or (build.head?))
@@ -62,8 +66,10 @@ class Mindustry < Formula
 
       # Link running script to app bundle, no need to duplicate files
       bin.install_symlink libexec/"Mindustry.app/Contents/MacOS/Mindustry" => "mindustry"
+    
+    # Build the app from scratch if requested
     elsif (not (build.without? "app")) and ((build.without? "prebuilt") or (build.head?))
-      system "./gradlew", "desktop:packrMacOS", "--info"
+      system "gradle", "--offline","desktop:packrMacOS", "-Pbuildversion=#{version}"
       libexec.install Dir ["build/packr/output/Mindustry.app"]
       # Link running script to app bundle, no need to duplicate files
       bin.install_symlink libexec/"Mindustry.app/Contents/MacOS/Mindustry" => "mindustry"

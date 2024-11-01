@@ -11,7 +11,7 @@ class SshProxy < Formula
   depends_on "cmake" => :build
 
   def install
-    system "cmake", "-S", ".", "-B", "build", *std_cmake_args, "-DHOMEBREW_ALLOW_FETCHCONTENT=ON"
+    system "cmake", "-S", ".", "-B", "build", *std_cmake_args, "-DHOMEBREW_ALLOW_FETCHCONTENT=ON", "-DCMAKE_INSTALL_SYSCONFDIR=#{etc}"
     system "cmake", "--build", "build"
     system "cmake", "--install", "build"
   end

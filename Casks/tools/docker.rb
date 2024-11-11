@@ -40,7 +40,7 @@ cask "docker" do
   binary "Docker.app/Contents/Resources/etc/docker-compose.fish-completion",
          target: "#{HOMEBREW_PREFIX}/share/fish/vendor_completions.d/docker-compose.fish"
   binary "#{appdir}/Docker.app/Contents/Resources/bin/docker",
-         target: "/bin/docker"
+         target: "#{HOMEBREW_PREFIX}/bin/docker"
   binary "#{appdir}/Docker.app/Contents/Resources/bin/docker-credential-desktop",
          target: "#{HOMEBREW_PREFIX}/local/bin/docker-credential-desktop"
   binary "#{appdir}/Docker.app/Contents/Resources/bin/docker-credential-ecr-login",

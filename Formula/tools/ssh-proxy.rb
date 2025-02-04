@@ -1,16 +1,18 @@
 class SshProxy < Formula
   desc "SSH Proxy Daemon"
   homepage "https://github.com/p1x3l101-10/ssh-proxy"
-  version "1.5"
+  version "1.6"
   url "https://github.com/p1x3l101-10/ssh-proxy.git",
     tag: "v#{version}"
   head "https://github.com/p1x3l101-10/ssh-proxy.git",
     branch: "main"
 
   depends_on "cmake" => :build
+  depends_on "tomlplusplus" => :build
+  depends_on "boost"
 
   def install
-    system "cmake", "-S", ".", "-B", "build", *std_cmake_args, "-DHOMEBREW_ALLOW_FETCHCONTENT=ON", "-DCMAKE_INSTALL_SYSCONFDIR=#{etc}"
+    system "cmake", "-S", ".", "-B", "build", *std_cmake_args, "-DCMAKE_INSTALL_SYSCONFDIR=#{etc}"
     system "cmake", "--build", "build"
     system "cmake", "--install", "build"
   end

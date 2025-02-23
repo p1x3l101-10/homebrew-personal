@@ -19,7 +19,7 @@ class Mindustry < Formula
   head do
     url "https://github.com/Anuken/Mindustry.git"
     version "HEAD"
-  done
+  end
 
   option "without-app", "Don't build an app bundle"
 

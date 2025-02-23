@@ -83,8 +83,4 @@ class Mindustry < Formula
       bin.write_jar_script "#{libexec}/Mindustry.jar", "mindustry", java_version: "17"
     end
   end
-
-  livecheck do
-    url "https://github.com/Anuken/Mindustry.git"
-  end
 end

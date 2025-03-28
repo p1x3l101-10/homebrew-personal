@@ -10,6 +10,7 @@ class DndTools < Formula
   depends_on "python@3.13"
 
   def install
-    bin.install "scripts/dnd-tools"
+    system "mkdir", "-p" "#{bin}"
+    system "sed", "s+#!/usr/bin/env python+#!/usr/bin/env python3+; w #{bin}/dnd-tools", "scripts/dnd-tools", 
   end
 end

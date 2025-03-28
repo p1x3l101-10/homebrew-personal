@@ -10,6 +10,6 @@ class DndTools < Formula
   depends_on "python@3.13"
 
   def install
-    system "python", "setup.py", "install", "--root=#{prefix}"
+    bin.install "scripts/dnd-tools"
   end
 end

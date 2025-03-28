@@ -11,6 +11,6 @@ class DndTools < Formula
 
   def install
     system "mkdir", "-p" "#{bin}"
-    system "sed", "s+#!/usr/bin/env python+#!/usr/bin/env python3+; w #{bin}/dnd-tools", "scripts/dnd-tools", 
+    system "sed", "s+#!/usr/bin/env python+#!/usr/bin/env python3+; w #{bin}/dnd-tools", "scripts/dnd-tools"
   end
 end

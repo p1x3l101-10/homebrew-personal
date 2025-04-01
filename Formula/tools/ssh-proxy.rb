@@ -9,6 +9,7 @@ class SshProxy < Formula
 
   depends_on "cmake" => :build
   depends_on "tomlplusplus" => :build
+  depends_on "pkgconf" => :build
   depends_on "boost"
 
   def install

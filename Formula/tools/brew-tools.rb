@@ -1,7 +1,7 @@
 class BrewTools < Formula
   desc "Homebrew extensions"
   homepage "https://github.com/p1x3l101-10/brew-tools"
-  version "2.10"
+  version "2.11"
   url "https://github.com/p1x3l101-10/brew-tools.git",
     tag: "v#{version}"
   head "https://github.com/p1x3l101-10/brew-tools.git",

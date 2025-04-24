@@ -14,6 +14,8 @@ class SshProxyAT2 < Formula
   depends_on "libssh"
   depends_on "log4cpp"
 
+  conflicts_with "ssh-proxy@1", because: "this is an beta version of ssh-proxy@1"
+
   def install
     system "cmake", "-S", ".", "-B", "build", *std_cmake_args, "-DCMAKE_INSTALL_SYSCONFDIR=#{etc}"
     system "cmake", "--build", "build"
@@ -31,7 +33,7 @@ class SshProxyAT2 < Formula
 
   def caveats
     <<~EOS
-      NOTE: THIS PACKAGE IS CURRENTLY IN AN ALPHA STATE, REPORT ANY BUGS
+      NOTE: THIS PACKAGE IS CURRENTLY IN AN BETA STATE, REPORT ANY BUGS
 
       ⚠️ Breaking changes in v2 and above:
       The command now requires the `daemon` argument to run the background service.

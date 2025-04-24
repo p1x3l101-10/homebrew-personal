@@ -21,7 +21,7 @@ class SshProxyAT2 < Formula
   end
 
   service do
-    run [bin/"ssh-proxy", "--daemon", "--logfile", var/"log/ssh-proxy.log"]
+    run [bin/"ssh-proxy", "--daemon", "--logfile", var/"log/ssh-proxy@2.log"]
     keep_alive true
   end
 

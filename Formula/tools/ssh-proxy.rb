@@ -25,21 +25,19 @@ class SshProxy < Formula
     system "cmake", "--install", "build"
   end
 
-  def daemon_command
-    if build.head?
-      service do
-        run [bin/"ssh-proxy", "--daemon"]
-        keep_alive true
-        log_path var/"log/ssh-proxy.log"
-        error_log_path var/"log/ssh-proxy.log"
-      end
-    else
-      service do
-        run bin/"ssh-proxy"
-        keep_alive true
-        log_path var/"log/ssh-proxy.log"
-        error_log_path var/"log/ssh-proxy.log"
-      end
+  if build.head?
+    service do
+      run [bin/"ssh-proxy", "--daemon"]
+      keep_alive true
+      log_path var/"log/ssh-proxy.log"
+      error_log_path var/"log/ssh-proxy.log"
+    end
+  else
+    service do
+      run bin/"ssh-proxy"
+      keep_alive true
+      log_path var/"log/ssh-proxy.log"
+      error_log_path var/"log/ssh-proxy.log"
     end
   end
 

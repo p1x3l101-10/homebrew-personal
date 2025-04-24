@@ -17,7 +17,7 @@ class SshProxy < Formula
     depends_on "magic_enum" => :build
     depends_on "libssh"
     depends_on "log4cpp"
-  done
+  end
 
   def install
     system "cmake", "-S", ".", "-B", "build", *std_cmake_args, "-DCMAKE_INSTALL_SYSCONFDIR=#{etc}"

@@ -42,6 +42,11 @@ class SshProxyAT2 < Formula
       The config file format has changed, change the name of `sshConf` to `connection`
         The following options have been changed:
           sshBin - Removed.
+      
+      The config file has been moved
+        It is now at `etc/ssh-proxy/config.toml`
+        The default config values have also been exported
+          They can be found at `lib/ssh-proxy/config.toml`
     EOS
   end
 end

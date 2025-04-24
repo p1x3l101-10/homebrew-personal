@@ -16,8 +16,6 @@ class SshProxyAT2 < Formula
   depends_on "libssh"
   depends_on "log4cpp"
 
-  conflicts_with "ssh-proxy@1", because: "this is an beta version of ssh-proxy@1"
-
   def install
     system "cmake", "-S", ".", "-B", "build", *std_cmake_args, "-DCMAKE_INSTALL_SYSCONFDIR=#{etc}"
     system "cmake", "--build", "build"

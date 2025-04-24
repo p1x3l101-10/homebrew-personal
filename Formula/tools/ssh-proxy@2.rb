@@ -4,6 +4,8 @@ class SshProxyAT2 < Formula
   version "2.0.0"
   head "https://github.com/p1x3l101-10/ssh-proxy.git",
     branch: "main"
+  url "https://github.com/p1x3l101-10/ssh-proxy.git",
+    tag: "v#{version}"
   license "BSD 3 Clause"
 
   depends_on "cmake" => :build

@@ -11,8 +11,8 @@ class SshProxyAT1 < Formula
   depends_on "pkgconf" => :build
   depends_on "boost"
 
-  deprecate! date: "2025-04-24", because: :reason, replacement: "ssh-proxy@2"
-  disable! date: "2025-06-01", because: :reason, replacement: "ssh-proxy@2"
+  deprecate! date: "2025-04-24", because: :deprecated_upstream, replacement: "ssh-proxy@2"
+  disable! date: "2025-06-01", because: :deprecated_upstream, replacement: "ssh-proxy@2"
 
   def install
     system "cmake", "-S", ".", "-B", "build", *std_cmake_args, "-DCMAKE_INSTALL_SYSCONFDIR=#{etc}"

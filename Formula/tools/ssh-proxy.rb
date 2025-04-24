@@ -53,7 +53,7 @@ class SshProxy < Formula
         The command now requires the `daemon` argument to run the background service.
   
         You may need to update your usage or manually edit the service with:
-          brew services restart mytool
+          brew services restart ssh-proxy
         
         The config file format has changed, change the name of `sshConf` to `connection`
           The following options have been changed:

@@ -41,9 +41,9 @@ class SshProxyAT2 < Formula
       You may need to update your usage or manually edit the service with:
         brew services restart ssh-proxy
       
-      The config file format has changed, change the name of `sshConf` to `connection`
+      The config file format has changed, change the name of the table `sshConf` to `connection`
         The following options have been changed:
-          sshBin - Removed.
+          config.sshBin - Removed.
       
       The config file has been moved
         It is now at `etc/ssh-proxy/config.toml`

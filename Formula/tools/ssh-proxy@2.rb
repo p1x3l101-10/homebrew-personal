@@ -1,7 +1,7 @@
 class SshProxyAT2 < Formula
   desc "SSH Proxy Daemon"
   homepage "https://github.com/p1x3l101-10/ssh-proxy"
-  version "2.0.1"
+  version "2.0.2"
   head "https://github.com/p1x3l101-10/ssh-proxy.git",
     branch: "main"
   url "https://github.com/p1x3l101-10/ssh-proxy.git",

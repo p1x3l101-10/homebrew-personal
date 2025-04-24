@@ -1,5 +1,4 @@
 class SshProxyAT1 < Formula
-  # TODO: Mark this package as depricated when I am done with v2
   desc "SSH Proxy Daemon"
   homepage "https://github.com/p1x3l101-10/ssh-proxy"
   version "1.6.3"
@@ -11,6 +10,9 @@ class SshProxyAT1 < Formula
   depends_on "tomlplusplus" => :build
   depends_on "pkgconf" => :build
   depends_on "boost"
+
+  deprecate! date: "2025-04-24", because: :reason, replacement: "ssh-proxy@2"
+  disable! date: "2025-06-01", because: :reason, replacement: "ssh-proxy@2"
 
   def install
     system "cmake", "-S", ".", "-B", "build", *std_cmake_args, "-DCMAKE_INSTALL_SYSCONFDIR=#{etc}"

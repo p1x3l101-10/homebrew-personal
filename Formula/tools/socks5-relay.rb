@@ -1,7 +1,7 @@
 class Socks5Relay < Formula
   desc "SOCKS5 Relay Proxy Daemon"
   homepage "https://github.com/p1x3l101-10/ssh-proxy"
-  version "2.0.5"
+  version "2.0.6"
   head "https://github.com/p1x3l101-10/ssh-proxy.git",
     branch: "main"
   url "https://github.com/p1x3l101-10/ssh-proxy.git",

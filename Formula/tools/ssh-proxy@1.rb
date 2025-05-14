@@ -1,7 +1,7 @@
 class SshProxyAT1 < Formula
   desc "SSH Proxy Daemon"
   homepage "https://github.com/p1x3l101-10/ssh-proxy"
-  version "1.6.6"
+  version "1.6.6-hotfix"
   url "https://github.com/p1x3l101-10/ssh-proxy.git",
     tag: "v#{version}"
   license "BSD 3 Clause"

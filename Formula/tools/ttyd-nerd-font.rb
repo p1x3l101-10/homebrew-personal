@@ -1,4 +1,4 @@
-class Ttyd < Formula
+class TtydNerdFont < Formula
   desc "Command-line tool for sharing terminal over the web - a fork with nerd font support"
   homepage "https://tsl0922.github.io/ttyd/"
   license "MIT"

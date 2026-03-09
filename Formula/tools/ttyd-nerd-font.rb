@@ -1,5 +1,5 @@
 class TtydNerdFont < Formula
-  desc "Command-line tool for sharing terminal over the web, with nerd fonts installed"
+  desc "A forked version of ttyd having built-in web font and nerd symbol support."
   homepage "https://github.com/metorm/ttyd-nerd-font"
   url "https://github.com/metorm/ttyd-nerd-font/archive/refs/tags/1.7.7.tar.gz"
   sha256 "039dd995229377caee919898b7bd54484accec3bba49c118e2d5cd6ec51e3650"

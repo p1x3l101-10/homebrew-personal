@@ -1,8 +1,10 @@
 class TtydNerdFont < Formula
-  desc "Command-line tool for sharing terminal over the web - a fork with nerd font support"
-  homepage "https://tsl0922.github.io/ttyd/"
+  desc "Command-line tool for sharing terminal over the web, with nerd fonts installed"
+  homepage "https://github.com/metorm/ttyd-nerd-font"
+  url "https://github.com/metorm/ttyd-nerd-font/archive/refs/tags/1.7.7.tar.gz"
+  sha256 "039dd995229377caee919898b7bd54484accec3bba49c118e2d5cd6ec51e3650"
   license "MIT"
-  revision 6
+  revision 8
   head "https://github.com/metorm/ttyd-nerd-font.git", branch: "main"
 
   depends_on "cmake" => :build
@@ -13,7 +15,12 @@ class TtydNerdFont < Formula
   depends_on "openssl@3"
 
   uses_from_macos "vim" # needed for xxd
-  uses_from_macos "zlib"
+
+  conflicts_with "ttyd", because: "this is the same project, just with a different font set built in" # Specify that this is still ttyd
+
+  on_linux do
+    depends_on "zlib-ng-compat"
+  end
 
   def install
     system "cmake", "-S", ".", "-B", "build",
@@ -29,8 +36,7 @@ class TtydNerdFont < Formula
     fork do
       system bin/"ttyd", "--port", port.to_s, "bash"
     end
-    sleep 5
-
-    system "curl", "-sI", "http://localhost:#{port}"
+    output = shell_output("curl --silent --retry 5 --retry-connrefused http://localhost:#{port}")
+    assert_match "<title>ttyd - Terminal</title>", output[..256]
   end
 end

@@ -1,8 +1,6 @@
 class TtydNerdFont < Formula
   desc "A forked version of ttyd having built-in web font and nerd symbol support."
   homepage "https://github.com/metorm/ttyd-nerd-font"
-  url "https://github.com/metorm/ttyd-nerd-font/archive/refs/tags/1.7.7.tar.gz"
-  sha256 "039dd995229377caee919898b7bd54484accec3bba49c118e2d5cd6ec51e3650"
   license "MIT"
   revision 8
   head "https://github.com/metorm/ttyd-nerd-font.git", branch: "main"
@@ -34,7 +32,7 @@ class TtydNerdFont < Formula
   test do
     port = free_port
     fork do
-      system bin/"ttyd", "--port", port.to_s, "bash"
+      system bin/"ttyd", "--port", port.to_s, "-t", "fontSize=16", "-t" "fontFamily=\"JetBrains, SarasaMono, Serif\"", "bash"
     end
     output = shell_output("curl --silent --retry 5 --retry-connrefused http://localhost:#{port}")
     assert_match "<title>ttyd - Terminal</title>", output[..256]

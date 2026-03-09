@@ -24,6 +24,7 @@ class TtydNerdFont < Formula
     system "cmake", "-S", ".", "-B", "build",
                     "-DOPENSSL_ROOT_DIR=#{Formula["openssl@3"].opt_prefix}",
                     "-Dlibwebsockets_DIR=#{Formula["libwebsockets"].opt_lib}/cmake/libwebsockets",
+                    "-DCMAKE_POLICY_VERSION_MINIMUM=3.5",
                     *std_cmake_args
     system "cmake", "--build", "build"
     system "cmake", "--install", "build"
